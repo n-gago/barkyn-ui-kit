@@ -73,5 +73,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "classnames": "^2.3.1"
+  }
 }
