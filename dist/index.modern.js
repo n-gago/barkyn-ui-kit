@@ -1,13 +1,27 @@
 import React__default, { createElement } from 'react';
 import classnames from 'classnames';
 
-const ExampleComponent = ({
-  text
-}) => {
+var ExampleComponent = function ExampleComponent(_ref) {
+  var text = _ref.text;
   return createElement("div", {
     className: 'test'
   }, "Example Component: ", text);
 };
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
 
 var Color;
 
@@ -34,14 +48,15 @@ var Size;
   Size["LARGE"] = "large";
 })(Size || (Size = {}));
 
-const Button = ({
-  variant,
-  color,
-  dimension,
-  className,
-  ...props
-}) => {
-  const classes = classnames('btn', {
+var _excluded = ["variant", "color", "dimension", "className"];
+var Button = function Button(_ref) {
+  var variant = _ref.variant,
+      color = _ref.color,
+      dimension = _ref.dimension,
+      className = _ref.className,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  var classes = classnames('btn', {
     'btn--contained': variant === Variants.CONTAINED,
     'btn--outlined': variant === Variants.OUTLINED,
     'btn--text': variant === Variants.TEXT,
