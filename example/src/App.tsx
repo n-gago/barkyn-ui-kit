@@ -1,17 +1,25 @@
 import React from 'react'
 
-import { ExampleComponent, Button } from 'barkyn-ui-kit'
+import { Button, useStyles } from 'barkyn-ui-kit'
 import 'barkyn-ui-kit/dist/index.css'
 
 const App = () => {
+  const classes = useStyles({
+    button: {
+      color: 'blue'
+    }
+  })
+
+  console.log(classes)
+
   return (
     <>
-      <ExampleComponent text="Create React Library Example 😄" />
       <Button
         variant="contained"
         color="default"
         dimension="large"
-        className="custom-buton--style"
+        //className="custom-buton--style"
+        //className={classes.button}
         //disabled={true}
       >
         <svg
