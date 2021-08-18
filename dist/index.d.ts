@@ -1,2 +1,2 @@
-export { ExampleComponent } from 'Example';
-export { Button } from 'Button';
+export { Button } from './Button';
+export { useStyles } from './hooks/useStyles';

@@ -11,6 +11,7 @@
   "engines": {
     "node": ">=10"
   },
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "microbundle-crl --no-compress --no-css-modules --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --no-css-modules --format modern,cjs",

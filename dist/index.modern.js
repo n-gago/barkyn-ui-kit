@@ -1,27 +1,5 @@
-import React__default, { createElement } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import classnames from 'classnames';
-
-var ExampleComponent = function ExampleComponent(_ref) {
-  var text = _ref.text;
-  return createElement("div", {
-    className: 'test'
-  }, "Example Component: ", text);
-};
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
 
 var Color;
 
@@ -48,15 +26,14 @@ var Size;
   Size["LARGE"] = "large";
 })(Size || (Size = {}));
 
-var _excluded = ["variant", "color", "dimension", "className"];
-var Button = function Button(_ref) {
-  var variant = _ref.variant,
-      color = _ref.color,
-      dimension = _ref.dimension,
-      className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded);
-
-  var classes = classnames('btn', {
+const Button = ({
+  variant,
+  color,
+  dimension,
+  className,
+  ...props
+}) => {
+  const classes = classnames('btn', {
     'btn--contained': variant === Variants.CONTAINED,
     'btn--outlined': variant === Variants.OUTLINED,
     'btn--text': variant === Variants.TEXT,
@@ -69,7 +46,7 @@ var Button = function Button(_ref) {
     'btn--large': dimension === Size.LARGE,
     'btn--disabled': props.disabled
   }, className);
-  return React__default.createElement("button", Object.assign({
+  return React.createElement("button", Object.assign({
     type: 'button',
     tabIndex: props.disabled ? -1 : 0,
     "aria-disabled": props.disabled,
@@ -82,5 +59,95 @@ Button.defaultProps = {
   dimension: 'small'
 };
 
-export { Button, ExampleComponent };
+const randomString = (length, base = 36) => {
+  return '_' + Math.random().toString(base).substr(2, length);
+};
+
+const getNodeIdentifier = () => {
+  const id = randomString(8);
+  return 'useStyles__' + id;
+};
+
+const compileInitialClasseNames = classes => {
+  return Object.keys(classes).reduce((obj, className) => ({ ...obj,
+    [className]: getNodeIdentifier()
+  }), {});
+};
+
+const DEFAULT_PARSER = {
+  matcher: /[A-Z]/,
+  replacer: match => `-${match.toLowerCase()}`
+};
+const useStyles = (styleSheet, options) => {
+  const classes = useMemo(() => compileInitialClasseNames(styleSheet), []);
+
+  const appendStyle = (id, css) => {
+    if (!document.head.querySelector('#' + id)) {
+      const node = document.createElement('style');
+      node.textContent = css;
+      node.type = 'text/css';
+      node.id = id;
+      document.head.appendChild(node);
+    }
+  };
+
+  const removeStyle = id => {
+    const element = document.head.querySelector('#' + id);
+
+    if (element) {
+      document.head.removeChild(element);
+    }
+  };
+
+  const isDOMReady = () => {
+    return typeof window !== 'undefined' && typeof document !== 'undefined' && !!document.head;
+  };
+
+  const createParser = (matcher, replacer) => {
+    const regex = RegExp(matcher, 'g');
+    return string => {
+      if (typeof string !== 'string') {
+        throw new TypeError(`expected an argument of type string, but got ${typeof string}`);
+      }
+
+      if (!string.match(regex)) {
+        return string;
+      }
+
+      return string.replace(regex, replacer);
+    };
+  };
+
+  const compileStyles = (styles, parser) => Object.keys(styles).map(property => `${parser(property)}: ${styles[property]}`).join('\n');
+
+  const compileStylesheet = () => {
+    var _options$parser, _options$parser2;
+
+    if (!styleSheet || typeof styleSheet !== 'object' || Array.isArray(styleSheet)) {
+      throw new TypeError(`expected an argument of type object, but got ${typeof styleSheet}`);
+    }
+
+    const parser = createParser((options === null || options === void 0 ? void 0 : (_options$parser = options.parser) === null || _options$parser === void 0 ? void 0 : _options$parser.matcher) || DEFAULT_PARSER.matcher, (options === null || options === void 0 ? void 0 : (_options$parser2 = options.parser) === null || _options$parser2 === void 0 ? void 0 : _options$parser2.replacer) || DEFAULT_PARSER.replacer);
+    const classnames = Object.keys(styleSheet).reduce((obj, classname) => ({ ...obj,
+      [classes[classname]]: compileStyles(styleSheet[classname], parser)
+    }), {});
+    return Object.keys(classnames).map(classname => `.${classname}: {\n${classnames[classname]}\n}`).join('\n');
+  };
+
+  useEffect(() => {
+    const id = getNodeIdentifier();
+
+    if (isDOMReady()) {
+      const css = compileStylesheet();
+      appendStyle(id, css);
+    }
+
+    return () => {
+      removeStyle(id);
+    };
+  }, []);
+  return classes;
+};
+
+export { Button, useStyles };
 //# sourceMappingURL=index.modern.js.map
