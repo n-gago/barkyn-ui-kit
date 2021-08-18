@@ -1,12 +1,10 @@
-import React from 'react'
-
 import { Button, useStyles } from 'barkyn-ui-kit'
 import 'barkyn-ui-kit/dist/index.css'
 
 const App = () => {
   const classes = useStyles({
     button: {
-      color: 'blue'
+      backgroundColor: 'red'
     }
   })
 
@@ -18,9 +16,7 @@ const App = () => {
         variant="contained"
         color="default"
         dimension="large"
-        //className="custom-buton--style"
-        //className={classes.button}
-        //disabled={true}
+        className={classes.button}
       >
         <svg
           data-position="start"

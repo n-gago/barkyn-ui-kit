@@ -1,0 +1,114 @@
+Arguments: 
+  /Users/nunogago/.nvm/versions/node/v12.22.3/bin/node /Users/nunogago/.nvm/versions/node/v12.22.3/bin/yarn install
+
+PATH: 
+  /opt/homebrew/bin:/Users/nunogago/.nvm/versions/node/v12.22.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  12.22.3
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  SyntaxError: /Users/nunogago/Desktop/ngago/barkyn-ui-kit/package.json: Unexpected token } in JSON at position 2464
+      at JSON.parse (<anonymous>)
+      at /Users/nunogago/.nvm/versions/node/v12.22.3/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/Users/nunogago/.nvm/versions/node/v12.22.3/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /Users/nunogago/.nvm/versions/node/v12.22.3/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "barkyn-ui-kit",
+    "version": "0.0.1",
+    "description": "Barkyn ui components for every project need",
+    "author": "Nuno Gago",
+    "license": "MIT",
+    "repository": "n-gago/barkyn-ui-kit",
+    "main": "dist/index.js",
+    "module": "dist/index.modern.js",
+    "source": "src/index.tsx",
+    "engines": {
+      "node": ">=10"
+    },
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "microbundle-crl --no-compress --no-css-modules --format modern,cjs",
+      "start": "microbundle-crl watch --no-compress --no-css-modules --format modern,cjs",
+      "prepare": "run-s build",
+      "test": "run-s test:unit test:lint test:build",
+      "test:build": "run-s build",
+      "test:lint": "eslint .",
+      "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
+      "test:watch": "react-scripts test --env=jsdom",
+      "predeploy": "cd example && yarn install && yarn run build",
+      "deploy": "gh-pages -d example/build",
+      "storybook": "start-storybook -p 6006",
+      "build-storybook": "build-storybook",
+      "commit": "npx git-cz"
+    },
+    "peerDependencies": {
+      "react": "^16.0.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.14.8",
+      "@commitlint/cli": "^13.1.0",
+      "@commitlint/config-conventional": "^13.1.0",
+      "@storybook/addon-actions": "^6.3.6",
+      "@storybook/addon-essentials": "^6.3.6",
+      "@storybook/addon-links": "^6.3.6",
+      "@storybook/react": "^6.3.6",
+      "@testing-library/jest-dom": "^4.2.4",
+      "@testing-library/react": "^9.5.0",
+      "@testing-library/user-event": "^7.2.1",
+      "@types/jest": "^25.1.4",
+      "@types/node": "^12.12.38",
+      "@types/react": "^16.9.27",
+      "@types/react-dom": "^16.9.7",
+      "@typescript-eslint/eslint-plugin": "^4.29.2",
+      "@typescript-eslint/parser": "^4.29.2",
+      "babel-eslint": "^10.0.3",
+      "babel-loader": "8.1.0",
+      "cross-env": "^7.0.2",
+      "eslint": "^7.14.0",
+      "eslint-config-prettier": "^6.7.0",
+      "eslint-config-standard": "^14.1.0",
+      "eslint-config-standard-react": "^9.2.0",
+      "eslint-plugin-import": "^2.18.2",
+      "eslint-plugin-node": "^11.0.0",
+      "eslint-plugin-prettier": "^3.1.1",
+      "eslint-plugin-promise": "^4.2.1",
+      "eslint-plugin-react": "^7.17.0",
+      "eslint-plugin-standard": "^4.0.1",
+      "gh-pages": "^2.2.0",
+      "husky": "^7.0.1",
+      "microbundle-crl": "^0.13.10",
+      "npm-run-all": "^4.1.5",
+      "prettier": "^2.0.4",
+      "react": "^16.13.1",
+      "react-dom": "^16.13.1",
+      "react-scripts": "^4.0.3",
+      "typescript": "^4.1.0",
+    },
+    "files": [
+      "dist"
+    ],
+    "dependencies": {
+      "classnames": "^2.3.1"
+    },
+    "resolutions": {
+      "**/typescript": "^4.1.2",
+      "**/@typescript-eslint/eslint-plugin": "^4.29.2",
+      "**/@typescript-eslint/parser": "^4.29.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

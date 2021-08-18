@@ -19,6 +19,7 @@ export enum Size {
 
 export interface Styles {
   color?: string
+  backgroundColor?: string
 }
 
 type MatchReplacer = (match: string) => string

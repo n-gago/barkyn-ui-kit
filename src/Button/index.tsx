@@ -12,15 +12,15 @@ export interface IButton
   /**
    * What type of button?
    */
-  variant?: keyof Record<Variants, string>
+  variant: `${Variants}`
   /**
    * What color to use?
    */
-  color?: keyof Record<Color, string>
+  color: `${Color}`
   /**
    * How large should the button be?
    */
-  dimension?: keyof Record<Size, string>
+  dimension: `${Size}`
   /**
    * Custom styles?
    */
