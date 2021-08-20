@@ -8,6 +8,9 @@
     "prettier/react",
     "plugin:@typescript-eslint/eslint-recommended"
   ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "env": {
     "node": true
   },
@@ -30,6 +33,7 @@
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
     "import/export": 0,
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "no-use-before-define": "off"
   }
 }

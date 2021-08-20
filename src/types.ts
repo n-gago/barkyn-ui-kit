@@ -16,3 +16,25 @@ export enum Size {
   MEDIUM = 'medium',
   LARGE = 'large'
 }
+
+export interface Styles {
+  color?: string
+  backgroundColor?: string
+}
+
+type MatchReplacer = (match: string) => string
+type ForceReplacer = () => string
+
+export type ParserReplacer = MatchReplacer | ForceReplacer
+export interface StylePropertyParser {
+  matcher: RegExp
+  replacer: ParserReplacer
+}
+
+export type Stylesheet<T> = {
+  [Class in keyof T]: Styles
+}
+
+export type Classes<T> = {
+  [Class in keyof T]: string
+}

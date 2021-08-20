@@ -1,18 +1,13 @@
-import React from 'react'
-
-import { ExampleComponent, Button } from 'barkyn-ui-kit'
+import { Button } from 'barkyn-ui-kit'
 import 'barkyn-ui-kit/dist/index.css'
 
 const App = () => {
   return (
     <>
-      <ExampleComponent text="Create React Library Example 😄" />
       <Button
         variant="contained"
         color="default"
         dimension="large"
-        className="custom-buton--style"
-        //disabled={true}
       >
         <svg
           data-position="start"
