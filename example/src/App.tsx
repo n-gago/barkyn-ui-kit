@@ -1,22 +1,13 @@
-import { Button, useStyles } from 'barkyn-ui-kit'
+import { Button } from 'barkyn-ui-kit'
 import 'barkyn-ui-kit/dist/index.css'
 
 const App = () => {
-  const classes = useStyles({
-    button: {
-      backgroundColor: 'red'
-    }
-  })
-
-  console.log(classes)
-
   return (
     <>
       <Button
         variant="contained"
         color="default"
         dimension="large"
-        className={classes.button}
       >
         <svg
           data-position="start"
