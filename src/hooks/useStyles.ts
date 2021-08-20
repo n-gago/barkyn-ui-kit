@@ -30,11 +30,16 @@ export const useStyles = <T>(
   const appendStyle = (id: string, css: string) => {
     if (!document.head.querySelector('#' + id)) {
       const node = document.createElement('style')
-      node.textContent = css
-      node.type = 'text/css'
+      node.innerHTML =
+        css + ';document.currentScript.dispatchEvent(new Event("load"));'
       node.id = id
 
-      document.head.appendChild(node)
+      node.setAttribute('loading', 'true')
+      node.addEventListener('load', () => {
+        node.removeAttribute('loading')
+      })
+
+      document.head.insertAdjacentElement('beforeend', node)
     }
   }
 
@@ -75,7 +80,7 @@ export const useStyles = <T>(
     parser: (property: string) => string
   ) =>
     Object.keys(styles)
-      .map((property) => `${parser(property)}: ${styles[property]}`)
+      .map((property) => `${parser(property)}: ${styles[property]};`)
       .join('\n')
 
   const compileStylesheet = (): string => {
@@ -103,7 +108,7 @@ export const useStyles = <T>(
     )
 
     return Object.keys(classnames)
-      .map((classname) => `.${classname}: {\n${classnames[classname]}\n}`)
+      .map((classname) => `.${classname} {\n${classnames[classname]}\n}`)
       .join('\n')
   }
 
